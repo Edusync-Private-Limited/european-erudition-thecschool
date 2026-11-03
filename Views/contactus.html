@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | European Erudition Institutions TheCSchool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/contactus.css">
+</head>
+<body>
+<nav class="navbar" id="navbar">
+  <div class="navbar-header">
+    <div class="logo">
+      <img src="images/dpslogo.jpeg" alt="School Logo">
+    </div>
+    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+      <div class="hamburger"></div>
+      <div class="hamburger"></div>
+      <div class="hamburger"></div>
+    </button>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/home">Home</a></li>
+    <li><a href="/about">About Us</a></li>
+    <li><a href="/admissions">Admissions</a></li>
+    <li><a href="/academics">Academics</a></li>
+    <li><a href="/hostel">Hostel</a></li>
+    <li><a href="/activities">Activities</a></li>
+    <li><a href="/birthday">Birthdays</a></li>
+    <li><a href="/gallery">Gallery</a></li>
+    <li><a href="/planner">Planner</a></li>
+    <li><a href="/contactus">Contact Us</a></li>
+    <li><a href="/Login">Sign In</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container position-relative">
+    <div class="crumb mb-4">
+      <a href="/home">Home</a><span class="sep">/</span><span>Contact Us</span>
+    </div>
+    <span class="eyebrow"><span class="rule"></span> Get in touch</span>
+    <h1>We'd love to hear<br>from you.</h1>
+    <p class="lead">Questions about admissions, campus visits, or academics — our front office team responds within one working day.</p>
+  </div>
+</section>
+
+<!-- Find Us -->
+<section class="section" id="contact-form">
+  <div class="container">
+    <div class="kicker">Reach the campus</div>
+    <h2 class="mb-2">Find Us</h2>
+    <p class="section-lead mb-5">Visit the campus office for admissions counselling, or send a message below and we'll get back to you shortly.</p>
+
+    <div class="row g-4 g-lg-5">
+      <div class="col-lg-5">
+        <div class="nameplate">
+          <div class="plate-crest"><i class="bi bi-mortarboard"></i></div>
+          <h3>Campus Office</h3>
+
+          <div class="plate-row">
+            <i class="bi bi-geo-alt"></i>
+            <div>
+              <div class="label">Address</div>
+              <div class="value">European Erudition Institutions TheCSchool, NH-40, Opp: Santhiram Medical College & General Hospital, Nandyal - 518501</div>
+            </div>
+          </div>
+
+          <div class="plate-row">
+            <i class="bi bi-telephone"></i>
+            <div>
+              <div class="label">Phone</div>
+              <div class="value"><a href="tel:7093803881, 7093803882 & 7093803884">7093803881, 7093803882 & 7093803884</a></div>
+            </div>
+          </div>
+
+          <div class="plate-row">
+            <i class="bi bi-envelope"></i>
+            <div>
+              <div class="label">Email</div>
+              <div class="value"><a href="mailto:info@dps.edusync.in">info@dps.edusync.in</a></div>
+            </div>
+          </div>
+
+          <div class="plate-row">
+            <i class="bi bi-clock"></i>
+            <div>
+              <div class="label">Office Hours</div>
+              <div class="value">Mon – Sat, 9:00 AM – 4:30 PM</div>
+            </div>
+          </div>
+
+         
+
+          <div class="map-frame">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3844.885179589595!2d78.4166178!3d15.4906071!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bb5b33ae1e2db9f%3A0xd4e963d25dce515b!2sDELHI%20PUBLIC%20SCHOOL!5e0!3m2!1sen!2sin!4v1784282073237!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="form-card">
+          <h3>Send a message</h3>
+          <p class="form-sub">Fill in the details below — whether it's an admissions query, a campus tour request, or general feedback.</p>
+
+          <form id="contactForm" novalidate>
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="form-label" for="fullName">Full Name</label>
+                <input type="text" class="form-control" id="fullName" placeholder="Enter your name" required>
+                <div class="invalid-msg">Please enter your name.</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="email">Email Address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                <div class="invalid-msg">Please enter a valid email.</div>
+              </div>
+            </div>
+
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="form-label" for="phone">Phone Number</label>
+                <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required>
+                <div class="invalid-msg">Please enter your phone number.</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="reason">I'm enquiring about</label>
+                <select class="form-select" id="reason">
+                  <option selected>Admissions</option>
+                  <option>Campus Tour</option>
+                  <option>Academics</option>
+                  <option>Fees &amp; Payments</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="message">Message</label>
+              <textarea class="form-control" id="message" placeholder="Your message" required></textarea>
+              <div class="invalid-msg">Please enter your message.</div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Verify you're human</label>
+              <div class="captcha-box">
+                <div class="captcha-pill" id="captchaPill">4 + 3</div>
+                <button type="button" class="captcha-refresh" id="captchaRefresh" title="Get a new question">
+                  <i class="bi bi-arrow-clockwise"></i>
+                </button>
+                <div class="captcha-input">
+                  <input type="text" class="form-control" id="captchaInput" placeholder="Answer">
+                </div>
+              </div>
+              <div class="invalid-msg" id="captchaMsg">That answer doesn't match — try again.</div>
+            </div>
+
+            <div class="form-check mb-4">
+              <input class="form-check-input" type="checkbox" id="agree" required>
+              <label class="form-check-label" for="agree">
+                I agree to receive SMS, RCS, and WhatsApp communication as per the <a href="#">Privacy Policy</a> and <a href="#">Terms &amp; Conditions</a>.
+              </label>
+              <div class="invalid-msg">Please accept before sending.</div>
+            </div>
+
+            <button type="submit" class="btn-send" id="sendBtn">
+              Send Message <i class="bi bi-arrow-right"></i>
+            </button>
+            <p class="form-note">We typically reply within one working day. For urgent queries, call the campus office directly.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="enquire-container">
+  <p class="enquire-text">Speak to our Admission Counsellors to know more</p>
+  <a href="/admissions" class="enquire-button">Enquire Now</a>
+</section>
+
+<footer class="footer">
+  <div class="footer-content">
+    <h2>CONTACT US</h2>
+    <p><i class="fas fa-map-marker-alt"></i> Santhiram Medical College and General Hospital, NH-18, X' Roads, Nerawada, Nandyala, Andhra Pradesh 518501</p>
+    <p><i class="fas fa-envelope"></i> dps@gmail.com</p>
+    <p><i class="fas fa-phone"></i> +917093803881</p>
+    <p><i class="fas fa-phone"></i> +917093803882</p>
+    <p><i class="fas fa-phone"></i> +917093803884</p>
+  </div>
+  <div class="footer-bottom">
+    <p>Copyright &copy; 2025 European Erudition Institutions TheCSchool. All Rights Reserved.</p>
+    <p>Designed and Developed by <a href="https://www.linkedin.com/in/aparajita-g-1678bb290">Aparajita Ghanta</a> and <a href="https://in.linkedin.com/in/akhilesh-samayamanthula-05bb1821a">Akhilesh Samayamanthula</a></p>
+  </div>
+</footer>
+
+<a href="https://wa.me/919000000000" class="fab-whatsapp" target="_blank" rel="noopener noreferrer" title="Chat with us on WhatsApp">
+  <i class="bi bi-whatsapp"></i>
+</a>
+
+<div class="toast-success" id="successToast">
+  <i class="bi bi-check-circle-fill"></i>
+  <div>
+    <div style="font-weight:600;">Message sent</div>
+    <div style="font-size:.8rem; opacity:.8;">We'll be in touch shortly.</div>
+  </div>
+</div>
+
+<div class="toast-success toast-error" id="errorToast">
+  <i class="bi bi-exclamation-circle-fill"></i>
+  <div>
+    <div style="font-weight:600;">Something went wrong</div>
+    <div style="font-size:.8rem; opacity:.8;" id="errorToastMsg">Please try again later.</div>
+  </div>
+</div>
+
+<script>
+  function toggleMobileMenu() {
+    document.getElementById('navLinks').classList.toggle('active');
+    document.querySelector('.mobile-menu-toggle').classList.toggle('active');
+  }
+
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('navLinks').classList.remove('active');
+      document.querySelector('.mobile-menu-toggle').classList.remove('active');
+    });
+  });
+
+  let captchaAnswer = 0;
+
+  function newCaptcha() {
+    const a = Math.floor(Math.random() * 8) + 1;
+    const b = Math.floor(Math.random() * 8) + 1;
+    captchaAnswer = a + b;
+    document.getElementById('captchaPill').textContent = a + ' + ' + b;
+    document.getElementById('captchaInput').value = '';
+  }
+
+  document.getElementById('captchaRefresh').addEventListener('click', newCaptcha);
+  newCaptcha();
+
+  function showToast(toastEl) {
+    toastEl.classList.add('show');
+    setTimeout(() => toastEl.classList.remove('show'), 3500);
+  }
+
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    let valid = true;
+
+    const fullName = document.getElementById('fullName');
+    const email = document.getElementById('email');
+    const phone = document.getElementById('phone');
+    const message = document.getElementById('message');
+    const agree = document.getElementById('agree');
+    const captchaInput = document.getElementById('captchaInput');
+    const captchaMsg = document.getElementById('captchaMsg');
+
+    [fullName, email, phone, message].forEach(el => {
+      if (!el.value.trim()) {
+        el.classList.add('is-invalid');
+        valid = false;
+      } else {
+        el.classList.remove('is-invalid');
+      }
+    });
+
+    if (email.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
+      email.classList.add('is-invalid');
+      valid = false;
+    }
+
+    if (parseInt(captchaInput.value.trim(), 10) !== captchaAnswer) {
+      captchaInput.classList.add('is-invalid');
+      captchaMsg.style.display = 'block';
+      valid = false;
+    } else {
+      captchaInput.classList.remove('is-invalid');
+      captchaMsg.style.display = 'none';
+    }
+
+    if (!agree.checked) {
+      agree.classList.add('is-invalid');
+      valid = false;
+    } else {
+      agree.classList.remove('is-invalid');
+    }
+
+    if (!valid) return;
+
+    const payload = {
+      fullName: fullName.value.trim(),
+      email: email.value.trim(),
+      phone: phone.value.trim(),
+      reason: document.getElementById('reason').value,
+      message: message.value.trim()
+    };
+
+    const btn = document.getElementById('sendBtn');
+    btn.disabled = true;
+    btn.innerHTML = 'Sending... <i class="bi bi-hourglass-split"></i>';
+
+    try {
+      const response = await fetch('/submit-contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || 'Failed to send message');
+      }
+
+      form.reset();
+      newCaptcha();
+      showToast(document.getElementById('successToast'));
+    } catch (err) {
+      document.getElementById('errorToastMsg').textContent = err.message || 'Please try again later.';
+      showToast(document.getElementById('errorToast'));
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = 'Send Message <i class="bi bi-arrow-right"></i>';
+    }
+  });
+</script>
+</body>
+</html>

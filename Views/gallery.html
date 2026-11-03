@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color:#e3f2fd;
+            padding-top: 140px; /* Prevents content from hiding behind navbar */
+            margin: 0;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: background 0.4s ease-in-out;
+        }
+
+        .navbar.transparent {
+            background-color: rgba(255, 255, 255, 0.6);
+            box-shadow: none;
+        }
+
+        .navbar .logo img {
+            height: 100px; /* Logo size */
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            margin-top: 20px;
+            padding: 0;
+        }
+
+        .nav-links li {
+            display: inline;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #0e3970;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #75e5e9;
+        }
+
+        /* Gallery Section */
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-top: 75px;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #0d47a1;
+            text-align: center;
+            font-size: 43px;
+            font-family: 'Georgia', serif; /* Elegant font */
+            margin-bottom: 25px;
+        }
+
+        /* Gallery Styling */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping */
+            gap: 20px; /* Space between images */
+            justify-content: flex-start;
+        }
+
+        .gallery-item {
+            width: 100%; /* Full width for each gallery item */
+            margin-bottom: 30px; /* Space between gallery items */
+        }
+
+        .gallery-item h3 {
+            color: #0d47a1; /* Blue color for the title */
+            font-size: 24px; /* Larger font size */
+            margin-bottom: 10px; /* Gap between title and images */
+        }
+
+        .gallery-item .images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Space between images */
+        }
+
+        .gallery-item img {
+            width: calc(20% - 20px); /* 5 images per row with spacing */
+            height: auto;
+            object-fit: cover; /* Ensures images maintain aspect ratio */
+            border-radius: 8px; /* Optional: Adds rounded corners */
+            transition: transform 0.3s ease; /* Smooth hover effect */
+        }
+
+        .gallery-item img:hover {
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+
+        /* Responsive Design for Smaller Screens */
+        @media screen and (max-width: 1200px) {
+            .gallery-item img {
+                width: calc(25% - 20px); /* 4 images per row on smaller desktops */
+            }
+        }
+
+        @media screen and (max-width: 1024px) {
+            .gallery-item img {
+                width: calc(33.33% - 20px); /* 3 images per row on tablets */
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .gallery-item img {
+                width: calc(50% - 20px); /* 2 images per row on mobile */
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .gallery-item img {
+                width: 100%; /* 1 image per row on very small screens */
+            }
+        }
+
+        /* Mobile Navigation */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .hamburger {
+            width: 25px;
+            height: 3px;
+            background-color: #0e3970;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .mobile-menu-toggle.active .hamburger:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .mobile-menu-toggle.active .hamburger:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active .hamburger:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 10px 20px;
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+            }
+
+            .navbar .logo img {
+                height: 60px;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                gap: 15px;
+                margin-top: 15px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 16px;
+                padding: 10px;
+                border-bottom: 1px solid #eee;
+            }
+
+            body {
+                padding-top: 120px;
+            }
+
+            .gallery-container {
+                margin-top: 50px;
+                padding: 0 15px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            .gallery-item h3 {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 8px 15px;
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+            }
+
+            .navbar .logo img {
+                height: 50px;
+            }
+
+            .nav-links a {
+                font-size: 14px;
+            }
+
+            body {
+                padding-top: 100px;
+            }
+
+            .gallery-container {
+                margin-top: 40px;
+                padding: 0 10px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .gallery-item h3 {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="logo">
+            <img src="images/dpslogo.jpeg" alt="School Logo">
+        </div>
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+            <div class="hamburger"></div>
+            <div class="hamburger"></div>
+            <div class="hamburger"></div>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/admissions">Admissions</a></li>
+            <li><a href="/academics">Academics</a></li>
+            <li><a href="/hostel">Hostel</a></li>
+            <li><a href="/activities">Activities</a></li>
+            <li><a href="/birthday">Birthdays</a></li>
+            <li><a href="/gallery">Gallery</a></li>
+            <li><a href="/planner">Planner</a></li>
+            <li><a href="/contactus">Contact Us</a></li>
+            <li><a href="/Login">Sign In</a></li>
+        </ul>
+    </nav>
+
+    <!-- Gallery Section -->
+    <div class="gallery-container">
+        <h2>Gallery</h2>
+        <div id="galleryList" class="gallery"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            try {
+                const response = await fetch('/get-gallery');
+                const data = await response.json();
+
+                if (!Array.isArray(data) || data.length === 0) {
+                    console.error("Invalid or empty gallery data:", data);
+                    return;
+                }
+
+                const galleryList = document.getElementById('galleryList');
+                galleryList.innerHTML = ""; // Clear existing content
+
+                data.forEach(item => {
+                    // Create a container for each gallery item
+                    const galleryItem = document.createElement("div");
+                    galleryItem.classList.add("gallery-item");
+
+                    // Add the title
+                    const title = document.createElement("h3");
+                    title.textContent = item.title;
+                    galleryItem.appendChild(title);
+
+                    // Create a container for the images
+                    const imagesContainer = document.createElement("div");
+                    imagesContainer.classList.add("images");
+
+                    // Add all images
+                    item.images.forEach(imgSrc => {
+                        const img = document.createElement("img");
+                        img.src = imgSrc;
+                        img.alt = item.title;
+                        img.loading = "lazy"; // Improve performance with lazy loading
+                        imagesContainer.appendChild(img);
+                    });
+
+                    galleryItem.appendChild(imagesContainer);
+                    galleryList.appendChild(galleryItem);
+                });
+
+            } catch (error) {
+                console.error('Error fetching gallery:', error);
+            }
+        });
+
+        // Mobile menu toggle function
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const mobileToggle = document.querySelector('.mobile-menu-toggle');
+            navLinks.classList.toggle('active');
+            mobileToggle.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+                document.querySelector('.mobile-menu-toggle').classList.remove('active');
+            });
+        });
+    </script>
+
+</body>
+</html>

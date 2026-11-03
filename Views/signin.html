@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Sign-In - European Erudition Institutions TheCSchool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: -50%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .portal-shell {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            width: 100%;
+            max-width: 980px;
+            min-height: 620px;
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .signin-panel,
+        .admin-panel {
+            padding: 36px 32px;
+        }
+
+        .signin-panel {
+            background: rgba(255, 255, 255, 0.98);
+            border-right: 1px solid #e8edf3;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .admin-panel {
+            background: linear-gradient(180deg, #f8fbff 0%, #eef4fa 100%);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .school-logo {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, #0e3970, #75e5e9);
+            border-radius: 50%;
+            margin: 0 auto 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            box-shadow: 0 10px 20px rgba(14, 57, 112, 0.25);
+        }
+
+        .signin-panel h1 {
+            color: #0e3970;
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .input-container {
+            position: relative;
+        }
+
+        .input-container i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #0e3970;
+        }
+
+        .signin-panel input {
+            width: 100%;
+            padding: 14px 14px 14px 42px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: #fff;
+        }
+
+        .signin-panel input:focus {
+            outline: none;
+            border-color: #0e3970;
+            box-shadow: 0 0 0 3px rgba(14, 57, 112, 0.1);
+        }
+
+        .signin-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #0e3970, #75e5e9);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 6px;
+        }
+
+        .signin-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(14, 57, 112, 0.25);
+        }
+
+        .signin-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .signed-in-banner {
+            display: none;
+            background: #e8f7ee;
+            border: 1px solid #b7e4c7;
+            color: #1b5e20;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+
+        .signed-in-banner.show {
+            display: block;
+        }
+
+        .admin-panel-header {
+            margin-bottom: 22px;
+        }
+
+        .admin-panel-header h2 {
+            color: #0e3970;
+            font-size: 22px;
+            margin-bottom: 6px;
+        }
+
+        .admin-panel-header p {
+            color: #667085;
+            font-size: 14px;
+        }
+
+        .admin-panel.locked .admin-options {
+            opacity: 0.45;
+            pointer-events: none;
+            filter: grayscale(0.2);
+        }
+
+        .lock-notice {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff3cd;
+            border: 1px solid #ffe69c;
+            color: #856404;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .lock-notice.hidden {
+            display: none;
+        }
+
+        .admin-options {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            flex: 1;
+            align-content: start;
+        }
+
+        .option {
+            padding: 22px 16px;
+            background: linear-gradient(135deg, #0e3970, #75e5e9);
+            color: white;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: center;
+            border: none;
+            font: inherit;
+        }
+
+        .option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(14, 57, 112, 0.28);
+        }
+
+        .option i {
+            font-size: 22px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .option span {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 14px;
+            font-size: 14px;
+            border-left: 4px solid #c33;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .loading {
+            display: none;
+            margin-top: 14px;
+            text-align: center;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #0e3970;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 860px) {
+            body {
+                align-items: flex-start;
+                padding: 16px;
+            }
+
+            .portal-shell {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+
+            .signin-panel {
+                border-right: none;
+                border-bottom: 1px solid #e8edf3;
+            }
+
+            .admin-options {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .signin-panel,
+            .admin-panel {
+                padding: 24px 18px;
+            }
+
+            .admin-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="portal-shell">
+        <section class="signin-panel">
+            <div class="logo-section">
+                <div class="school-logo">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h1>Admin Portal</h1>
+                <p class="subtitle">European Erudition Institutions TheCSchool</p>
+            </div>
+
+            <div class="signed-in-banner" id="signedInBanner">
+                <i class="fas fa-check-circle"></i> Signed in successfully. Choose a section on the right.
+            </div>
+
+            <form id="signinForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <div class="input-container">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" placeholder="Enter your username" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-container">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="signin-btn" id="signinBtn">
+                    <span id="btnText">Sign In</span>
+                </button>
+
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                </div>
+
+                <div class="error-message" id="errorMessage">
+                    Invalid credentials. Please try again.
+                </div>
+            </form>
+        </section>
+
+        <section class="admin-panel locked" id="adminPanel">
+            <div class="admin-panel-header">
+                <h2>Choose Admin Section</h2>
+                <p>Select a module to manage school content and enquiries.</p>
+            </div>
+
+            <div class="lock-notice" id="lockNotice">
+                <i class="fas fa-lock"></i>
+                <span>Sign in on the left to unlock these admin sections.</span>
+            </div>
+
+            <div class="admin-options">
+                <button type="button" class="option" onclick="redirectTo('activities')">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Activities</span>
+                </button>
+                <button type="button" class="option" onclick="redirectTo('gallery')">
+                    <i class="fas fa-images"></i>
+                    <span>Gallery</span>
+                </button>
+                <button type="button" class="option" onclick="redirectTo('birthday')">
+                    <i class="fas fa-birthday-cake"></i>
+                    <span>Birthdays</span>
+                </button>
+                <button type="button" class="option" onclick="redirectTo('planner')">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Planner</span>
+                </button>
+                <button type="button" class="option" onclick="redirectTo('contact')">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact Messages</span>
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const signinForm = document.getElementById('signinForm');
+        const signinBtn = document.getElementById('signinBtn');
+        const btnText = document.getElementById('btnText');
+        const loading = document.getElementById('loading');
+        const errorMessage = document.getElementById('errorMessage');
+        const adminPanel = document.getElementById('adminPanel');
+        const lockNotice = document.getElementById('lockNotice');
+        const signedInBanner = document.getElementById('signedInBanner');
+
+        signinForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await signIn();
+        });
+
+        async function signIn() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (!username.trim() || !password.trim()) {
+                showError('Please fill in all fields');
+                return;
+            }
+
+            setLoadingState(true);
+            hideError();
+
+            try {
+                const response = await fetch('/signin', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password }),
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    localStorage.setItem('adminToken', data.token);
+                    unlockAdminPanel();
+                    signinBtn.innerHTML = '<i class="fas fa-check"></i> Signed In';
+                    signinBtn.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+                } else {
+                    showError('Invalid credentials. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Connection error. Please try again.');
+            } finally {
+                setLoadingState(false);
+            }
+        }
+
+        function unlockAdminPanel() {
+            adminPanel.classList.remove('locked');
+            lockNotice.classList.add('hidden');
+            signedInBanner.classList.add('show');
+        }
+
+        function setLoadingState(isLoading) {
+            signinBtn.disabled = isLoading;
+            btnText.textContent = isLoading ? 'Signing In...' : 'Sign In';
+            loading.classList.toggle('show', isLoading);
+        }
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.add('show');
+            setTimeout(hideError, 5000);
+        }
+
+        function hideError() {
+            errorMessage.classList.remove('show');
+        }
+
+        function redirectTo(page) {
+            const token = localStorage.getItem('adminToken');
+            if (!token) {
+                showError('Please sign in first to access admin sections.');
+                return;
+            }
+
+            const pages = {
+                activities: `/admin-activities?token=${token}`,
+                gallery: `/admin-gallery?token=${token}`,
+                birthday: `/admin-birthday?token=${token}`,
+                planner: `/admin-planner?token=${token}`,
+                contact: `/admin-contact?token=${token}`
+            };
+
+            if (pages[page]) {
+                window.location.href = pages[page];
+            }
+        }
+
+        window.addEventListener('load', () => {
+            if (localStorage.getItem('adminToken')) {
+                unlockAdminPanel();
+                signinBtn.innerHTML = '<i class="fas fa-check"></i> Signed In';
+                signinBtn.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+            }
+        });
+    </script>
+</body>
+</html>

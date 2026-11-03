@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planner</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e3f2fd;
+            padding-top: 140px; /* Prevents content from hiding behind navbar */
+            margin: 0;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: background 0.4s ease-in-out;
+        }
+
+        .navbar.transparent {
+            background-color: rgba(255, 255, 255, 0.6);
+            box-shadow: none;
+        }
+
+        .navbar .logo img {
+            height: 100px; /* Logo size */
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            margin-top: 20px;
+            padding: 0;
+        }
+
+        .nav-links li {
+            display: inline;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #0e3970;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #75e5e9;
+        }
+
+        /* Planner Section */
+        .planner-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-top: 75px;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #0d47a1;
+            text-align: center;
+            font-size: 43px;
+            font-family: 'Georgia', serif; /* Elegant font */
+            margin-bottom: 25px;
+        }
+
+        /* Planner Styling */
+        .planner {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: flex-start;
+        }
+
+        .planner-item {
+            width: 100%;
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .planner-item h3 {
+            color: #0d47a1;
+            font-size: 24px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #75e5e9;
+            padding-bottom: 10px;
+        }
+
+        .pdf-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .pdf-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #0e3970;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-width: 120px;
+        }
+
+        .pdf-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            color: #0e3970;
+        }
+
+        .pdf-icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        .pdf-label {
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .no-data {
+            text-align: center;
+            color: #666;
+            font-size: 18px;
+            padding: 40px;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .pdf-container {
+                justify-content: center;
+            }
+            
+            .planner-container {
+                padding: 10px;
+            }
+            
+            .planner-item {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="logo">
+            <img src="images/dpslogo.jpeg" alt="School Logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/admissions">Admissions</a></li>
+            <li><a href="/academics">Academics</a></li>
+            <li><a href="/hostel">Hostel</a></li>
+            <li><a href="/activities">Activities</a></li>
+            <li><a href="/birthday">Birthdays</a></li>
+            <li><a href="/gallery">Gallery</a></li>
+            <li><a href="/planner">Planner</a></li>
+            <li><a href="/contactus">Contact Us</a></li>
+            <li><a href="/Login">Sign In</a></li>
+        </ul>
+    </nav>
+
+    <!-- Planner Section -->
+    <div class="planner-container">
+        <h2>Planner</h2>
+        <div id="plannerList" class="planner"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            try {
+                // FIXED: Changed from '/get-gallery' to '/get-planner'
+                const response = await fetch('/get-planner');
+                const data = await response.json();
+
+                if (!Array.isArray(data) || data.length === 0) {
+                    console.log("No planner data available");
+                    document.getElementById('plannerList').innerHTML = '<div class="no-data">No planner items available</div>';
+                    return;
+                }
+
+                // FIXED: Changed from 'galleryList' to 'plannerList'
+                const plannerList = document.getElementById('plannerList');
+                plannerList.innerHTML = ""; // Clear existing content
+
+                data.forEach(item => {
+                    // Create a container for each planner item
+                    const plannerItem = document.createElement("div");
+                    plannerItem.classList.add("planner-item");
+
+                    // Add the title (page number)
+                    const title = document.createElement("h3");
+                    title.textContent = `${item.title}`;
+                    plannerItem.appendChild(title);
+
+                    // Create a container for the PDFs
+                    const pdfContainer = document.createElement("div");
+                    pdfContainer.classList.add("pdf-container");
+
+                    // FIXED: Changed from 'images' to 'pdfs'
+                    if (item.pdfs && item.pdfs.length > 0) {
+                        item.pdfs.forEach((pdfUrl, index) => {
+                            const pdfLink = document.createElement("a");
+                            pdfLink.href = pdfUrl;
+                            pdfLink.target = "_blank";
+                            pdfLink.classList.add("pdf-item");
+
+                            // Create PDF icon
+                            const pdfIcon = document.createElement("div");
+                            pdfIcon.innerHTML = `
+                                <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" fill="#ff4444"/>
+                                    <path d="M14 2V8H20" fill="#cc0000"/>
+                                    <text x="12" y="16" text-anchor="middle" font-size="6" fill="white">PDF</text>
+                                </svg>
+                            `;
+
+                            // Create PDF label
+                            const pdfLabel = document.createElement("div");
+                            pdfLabel.classList.add("pdf-label");
+                            pdfLabel.textContent = `PDF ${index + 1}`;
+
+                            pdfLink.appendChild(pdfIcon);
+                            pdfLink.appendChild(pdfLabel);
+                            pdfContainer.appendChild(pdfLink);
+                        });
+                    } else {
+                        pdfContainer.innerHTML = '<div class="no-data">No PDFs available for this page</div>';
+                    }
+
+                    plannerItem.appendChild(pdfContainer);
+                    plannerList.appendChild(plannerItem);
+                });
+
+            } catch (error) {
+                console.error('Error fetching planner data:', error);
+                document.getElementById('plannerList').innerHTML = '<div class="no-data">Error loading planner data</div>';
+            }
+        });
+    </script>
+
+</body>
+</html>

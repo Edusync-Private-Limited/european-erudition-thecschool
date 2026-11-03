@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .dashboard-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .dashboard-container h2 {
+            margin-bottom: 20px;
+            color: #0e3970;
+        }
+        .dashboard-container input,
+        .dashboard-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .dashboard-container button {
+            padding: 10px 20px;
+            background-color: #0e3970;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .dashboard-container button:hover {
+            background-color: #75e5e9;
+        }
+        
+        /* Drag and Drop Styles */
+        .drop-zone {
+            border: 3px dashed #0e3970;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            background-color: #f8f9fa;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .drop-zone.dragover {
+            border-color: #75e5e9;
+            background-color: #e3f2fd;
+            transform: scale(1.02);
+        }
+        .drop-zone p {
+            margin: 0;
+            color: #666;
+            font-size: 16px;
+        }
+        .drop-zone .upload-icon {
+            font-size: 48px;
+            color: #0e3970;
+            margin-bottom: 10px;
+        }
+        
+        /* Image Preview Styles */
+        .image-preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .image-preview {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .image-preview .remove-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .image-preview .remove-btn:hover {
+            background: rgba(255, 0, 0, 1);
+        }
+        
+        /* File Input Styling */
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: -9999px;
+        }
+        .file-input-label {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0e3970;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .file-input-label:hover {
+            background-color: #75e5e9;
+        }
+        
+        .gallery-list {
+            margin-top: 20px;
+        }
+        .gallery-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background-color: #fafafa;
+        }
+        .gallery-item img {
+            max-width: 100px;
+            border-radius: 4px;
+        }
+        .gallery-item-info {
+            flex: 1;
+            margin: 0 15px;
+        }
+        .gallery-item-info h4 {
+            margin: 0 0 5px 0;
+            color: #0e3970;
+        }
+        .gallery-item-info p {
+            margin: 0;
+            color: #666;
+        }
+        .delete-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .delete-btn:hover {
+            background-color: #cc0000;
+        }
+        
+        /* Progress Bar */
+        .upload-progress {
+            width: 100%;
+            height: 20px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+            display: none;
+        }
+        .upload-progress-bar {
+            height: 100%;
+            background-color: #0e3970;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h2>Admin Gallery</h2>
+
+        <!-- Add Gallery Item Form -->
+        <form id="galleryForm">
+            <input type="text" id="galleryTitle" placeholder="Event Title" required>
+            
+            <!-- Drag and Drop Zone -->
+            <div class="drop-zone" id="dropZone">
+                <div class="upload-icon">📁</div>
+                <p>Drag and drop images here or click to select</p>
+                <p><small>Supports multiple image selection</small></p>
+            </div>
+            
+            <!-- Hidden file input -->
+            <div class="file-input-wrapper">
+                <input type="file" id="galleryImages" accept="image/*" multiple style="display: none;">
+                <label for="galleryImages" class="file-input-label">Choose Images</label>
+            </div>
+            
+            <!-- Image Preview Container -->
+            <div class="image-preview-container" id="imagePreviewContainer" style="display: none;">
+                <h4>Selected Images:</h4>
+            </div>
+            
+            <!-- Upload Progress -->
+            <div class="upload-progress" id="uploadProgress">
+                <div class="upload-progress-bar" id="uploadProgressBar"></div>
+            </div>
+            
+            <button type="submit" id="submitBtn">Add Gallery Item</button>
+            <button type="button" id="clearBtn">Clear Selection</button>
+        </form>
+
+        <!-- Gallery List -->
+        <div class="gallery-list">
+            <h3>Gallery Items</h3>
+            <div id="galleryItemsList"></div>
+        </div>
+    </div>
+
+    <script>
+        const token = new URLSearchParams(window.location.search).get('token'); // Get token from URL
+        let selectedFiles = [];
+
+        // DOM Elements
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('galleryImages');
+        const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+        const uploadProgress = document.getElementById('uploadProgress');
+        const uploadProgressBar = document.getElementById('uploadProgressBar');
+        const submitBtn = document.getElementById('submitBtn');
+        const clearBtn = document.getElementById('clearBtn');
+
+        // Drag and Drop Event Listeners
+        dropZone.addEventListener('click', () => fileInput.click());
+        dropZone.addEventListener('dragover', handleDragOver);
+        dropZone.addEventListener('dragleave', handleDragLeave);
+        dropZone.addEventListener('drop', handleDrop);
+        fileInput.addEventListener('change', handleFileSelect);
+        clearBtn.addEventListener('click', clearSelection);
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        }
+
+        function handleDragLeave(e) {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            const files = Array.from(e.dataTransfer.files).filter(file => file.type.startsWith('image/'));
+            addFiles(files);
+        }
+
+        function handleFileSelect(e) {
+            const files = Array.from(e.target.files);
+            addFiles(files);
+        }
+
+        function addFiles(files) {
+            selectedFiles = [...selectedFiles, ...files];
+            updateImagePreviews();
+        }
+
+        function updateImagePreviews() {
+            if (selectedFiles.length === 0) {
+                imagePreviewContainer.style.display = 'none';
+                return;
+            }
+
+            imagePreviewContainer.style.display = 'block';
+            imagePreviewContainer.innerHTML = '<h4>Selected Images:</h4>';
+
+            selectedFiles.forEach((file, index) => {
+                const preview = document.createElement('div');
+                preview.className = 'image-preview';
+                
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.alt = file.name;
+                
+                const removeBtn = document.createElement('button');
+                removeBtn.className = 'remove-btn';
+                removeBtn.innerHTML = '×';
+                removeBtn.onclick = () => removeFile(index);
+                
+                preview.appendChild(img);
+                preview.appendChild(removeBtn);
+                imagePreviewContainer.appendChild(preview);
+            });
+        }
+
+        function removeFile(index) {
+            selectedFiles.splice(index, 1);
+            updateImagePreviews();
+        }
+
+        function clearSelection() {
+            selectedFiles = [];
+            fileInput.value = '';
+            updateImagePreviews();
+        }
+
+        // Function to handle image upload with progress
+        const uploadImages = async (files) => {
+            const formData = new FormData();
+            for (let i = 0; i < files.length; i++) {
+                formData.append('images', files[i]);
+            }
+
+            uploadProgress.style.display = 'block';
+            uploadProgressBar.style.width = '0%';
+
+            try {
+                const response = await fetch('/upload-images', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                // Simulate progress (since we can't track real upload progress easily)
+                let progress = 0;
+                const progressInterval = setInterval(() => {
+                    progress += 10;
+                    uploadProgressBar.style.width = progress + '%';
+                    if (progress >= 100) {
+                        clearInterval(progressInterval);
+                    }
+                }, 100);
+
+                const data = await response.json();
+                uploadProgress.style.display = 'none';
+                return data.imageUrls;
+            } catch (error) {
+                uploadProgress.style.display = 'none';
+                throw error;
+            }
+        };
+
+        // Add Gallery Item
+        document.getElementById('galleryForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            if (selectedFiles.length === 0) {
+                alert('Please select at least one image');
+                return;
+            }
+
+            const title = document.getElementById('galleryTitle').value;
+            if (!title.trim()) {
+                alert('Please enter a title for the gallery item');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Uploading...';
+
+            try {
+                const imageUrls = await uploadImages(selectedFiles);
+
+                // Send gallery item data to the server
+                const response = await fetch('/add-gallery-item', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({ title, images: imageUrls }),
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('Gallery item added successfully!');
+                    clearSelection();
+                    document.getElementById('galleryTitle').value = '';
+                    loadGalleryItems();
+                } else {
+                    alert('Failed to add gallery item: ' + (data.message || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error uploading images. Please try again.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Add Gallery Item';
+            }
+        });
+
+        // Load Gallery Items
+        const loadGalleryItems = () => {
+            fetch('/get-gallery')
+                .then(response => response.json())
+                .then(data => {
+                    const galleryItemsList = document.getElementById('galleryItemsList');
+                    galleryItemsList.innerHTML = data.map(item => {
+                        const images = Array.isArray(item.images) ? item.images : [];
+                        const firstImage = images.length > 0 ? images[0] : '';
+
+                        return `
+                            <div class="gallery-item">
+                                <img src="${firstImage}" alt="${item.title}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwIiB5PSI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+Tm8gSW1hZ2U8L3RleHQ+PC9zdmc+'">
+                                <div class="gallery-item-info">
+                                    <h4>${item.title}</h4>
+                                    <p>${images.length} image(s)</p>
+                                </div>
+                                <button class="delete-btn" onclick="deleteGalleryItem('${item.title}')">Delete</button>
+                            </div>
+                        `;
+                    }).join('');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('galleryItemsList').innerHTML = '<p>Error loading gallery items</p>';
+                });
+        };
+
+        // Delete Gallery Item
+        const deleteGalleryItem = (title) => {
+            if (!confirm('Are you sure you want to delete this gallery item?')) {
+                return;
+            }
+
+            fetch('/delete-gallery-item', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify({ title }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Gallery item deleted successfully!');
+                    loadGalleryItems();
+                } else {
+                    alert('Failed to delete gallery item');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        };
+
+        // Load gallery items on page load
+        loadGalleryItems();
+    </script>
+</body>
+</html>

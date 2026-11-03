@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>European Erudition Institutions TheCSchool</title>
+    <style>
+        /* Basic Reset */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ff7f50;
+            color: #000;
+        }
+
+        /* Force content visibility */
+        .content {
+            visibility: visible !important;
+            display: block !important;
+        }
+
+        .content h2 {
+            visibility: visible !important;
+            display: block !important;
+            color: #000 !important;
+        }
+
+        .content .section {
+            visibility: visible !important;
+            display: block !important;
+        }
+
+        .content .section .text {
+            visibility: visible !important;
+            display: block !important;
+        }
+
+        .content .section .text .text-box {
+            visibility: visible !important;
+            display: block !important;
+        }
+
+        .content .section .text .text-box p {
+            visibility: visible !important;
+            display: block !important;
+            color: #000 !important;
+        }
+
+        .content .section .text .text-box h3 {
+            visibility: visible !important;
+            display: block !important;
+            color: #000 !important;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 40px;
+            background-color: rgba(255, 255, 255, 1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: background 0.4s ease-in-out;
+        }
+
+        .navbar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .navbar.transparent {
+            background-color: rgba(255, 255, 255, 0.6);
+            box-shadow: none;
+        }
+
+        .navbar .logo img {
+            height: 80px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            margin-top: 20px; /* Space between logo and links */
+        }
+
+        .nav-links li {
+            display: inline;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #0e3970;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #75e5e9;
+        }
+
+        /* Sub Navbar */
+        .sub-navbar {
+            display: flex;
+            justify-content: center;
+            gap: 70px;
+            padding: 15px 0;
+            background-color: #f8f8f8;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 100px; /* Place it below the main navbar */
+            left: 0;
+            right: 0;
+            z-index: 999;
+        }
+
+        .sub-navbar a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 10px 20px;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .sub-navbar a:hover {
+            color: #75e5e9;
+        }
+
+        /* Main Content */
+        .content {
+            max-width: 900px;
+            margin: 300px auto; /* Adjusted margin to accommodate fixed navbar */
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+            background-color: transparent;
+        }
+
+        h2 {
+            font-size: 26px;
+            margin-bottom: 15px;
+            color: #000 !important;
+            visibility: visible !important;
+            display: block !important;
+        }
+
+        h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #000 !important;
+            visibility: visible !important;
+            display: block !important;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 0; /* Remove default margin */
+            color: #000 !important;
+            visibility: visible !important;
+            display: block !important;
+        }
+
+        /* Text Box Styling */
+        .text-box {
+            background-color: #f9f9f9; /* Light grey background */
+            border: 1px solid #ddd; /* Light border */
+            border-radius: 8px; /* Rounded corners */
+            padding: 20px; /* Padding inside the box */
+            visibility: visible !important;
+            display: block !important;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            margin-bottom: 20px; /* Space between boxes */
+        }
+
+        /* Alternating Layout for Paragraphs and Images */
+        .content .section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            opacity: 0; /* Start invisible */
+            transform: translateY(50px); /* Start slightly below */
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .content .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .content .section:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .content .section:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .content .section .text {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .content .section img {
+            flex: 1;
+            max-width: 50%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animation Keyframes */
+        @keyframes slideInFromLeft {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInFromRight {
+            0% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Apply Animations to Sections */
+        .content .section:nth-child(odd) .text {
+            animation: slideInFromRight 1s ease-out forwards;
+        }
+
+        .content .section:nth-child(even) .text {
+            animation: slideInFromLeft 1s ease-out forwards;
+        }
+
+        .content .section:nth-child(odd) img {
+            animation: slideInFromLeft 1s ease-out forwards;
+        }
+
+        .content .section:nth-child(even) img {
+            animation: slideInFromRight 1s ease-out forwards;
+        }
+
+        /* Enquiry Section */
+        .enquire-container {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #0e3970, #75e5e9);
+            color: #fff;
+        }
+
+        .enquire-text {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .enquire-button {
+            display: inline-block;
+            background: #fff;
+            color: #0e3970;
+            font-size: 16px;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .enquire-button:hover {
+            background: #75e5e9;
+            color: #fff;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0a0a23;
+            color: #fff;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-content h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .footer-content p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .footer-content i {
+            margin-right: 10px;
+        }
+
+        .footer-bottom {
+            background: #07071a;
+            padding: 20px;
+            font-size: 20px;
+        }
+
+        /* Mobile Navigation */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .hamburger {
+            width: 25px;
+            height: 3px;
+            background-color: #0e3970;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .mobile-menu-toggle.active .hamburger:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .mobile-menu-toggle.active .hamburger:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active .hamburger:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 10px 20px;
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+            }
+
+            .navbar-header {
+                position: relative;
+                width: 100%;
+            }
+
+            .navbar .logo img {
+                height: 60px;
+            }
+
+            .mobile-menu-toggle {
+                display: flex !important;
+                right: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .nav-links {
+                display: none !important;
+                flex-direction: column;
+                gap: 15px;
+                margin-top: 15px;
+                width: 100%;
+                text-align: center;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: rgba(255, 255, 255, 0.95);
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                z-index: 1001;
+            }
+
+            .nav-links.active {
+                display: flex !important;
+            }
+
+            .nav-links a {
+                font-size: 16px;
+                padding: 10px;
+                border-bottom: 1px solid #eee;
+            }
+
+            .sub-navbar {
+                flex-wrap: wrap;
+                padding: 10px;
+                top: 80px;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .sub-navbar a {
+                font-size: 14px;
+                padding: 8px 12px;
+                margin: 2px;
+                flex: 1;
+                min-width: 80px;
+                text-align: center;
+            }
+
+            .content {
+                margin: 200px auto 20px auto;
+                padding: 15px;
+            }
+
+            .content .section {
+                flex-direction: column;
+                margin-bottom: 20px;
+            }
+
+            .content .section .text {
+                padding: 15px;
+                order: 2;
+                visibility: visible !important;
+                display: block !important;
+            }
+
+            .content .section img {
+                max-width: 100%;
+                margin-top: 0;
+                margin-bottom: 15px;
+                order: 1;
+            }
+
+            .text-box {
+                padding: 15px;
+                visibility: visible !important;
+                display: block !important;
+            }
+
+            h2 {
+                font-size: 22px;
+                visibility: visible !important;
+                display: block !important;
+            }
+
+            h3 {
+                font-size: 18px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+
+            .enquire-button {
+                font-size: 16px;
+                padding: 10px 15px;
+            }
+        }
+
+        /* Extra Small Mobile */
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 8px 15px;
+            }
+
+            .navbar .logo img {
+                height: 50px;
+            }
+
+            .mobile-menu-toggle {
+                right: 15px;
+            }
+
+            .nav-links a {
+                font-size: 14px;
+            }
+
+            .sub-navbar {
+                top: 70px;
+                padding: 8px;
+            }
+
+            .sub-navbar a {
+                font-size: 12px;
+                padding: 6px 8px;
+                min-width: 70px;
+            }
+
+            .content {
+                margin: 180px auto 15px auto;
+                padding: 10px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            h3 {
+                font-size: 16px;
+            }
+
+            p {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Navbar -->
+    <nav class="navbar">
+        <div class="navbar-header">
+            <div class="logo">
+                <img src="images/dpslogo.jpeg" alt="School Logo">
+            </div>
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+            </button>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/admissions">Admissions</a></li>
+            <li><a href="/academics">Academics</a></li>
+            <li><a href="/hostel">Hostel</a></li>
+            <li><a href="/activities">Activities</a></li>
+            <li><a href="/birthday">Birthdays</a></li>
+            <li><a href="/gallery">Gallery</a></li>
+            <li><a href="/planner">Planner</a></li>
+            <li><a href="/contactus">Contact Us</a></li>
+            <li><a href="/Login">Sign In</a></li>
+        </ul>
+    </nav>
+
+    <!-- Sub Navbar -->
+    <nav class="sub-navbar">
+        <a href="/academics">Primary</a>
+        <a href="/secondary">Secondary</a>
+        <a href="/senior-secondary">Senior Secondary</a>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content">
+        <h2>Primary School Education at European Erudition Institutions TheCSchool: A Foundation for Lifelong Learning (1st to 5th Grade)</h2>
+
+        <!-- Section 1 -->
+        <div class="section">
+            <div class="text">
+                <div class="text-box">
+                    <p>At European Erudition Institutions TheCSchool, we believe that Primary Education is the cornerstone of a child's academic journey and personal growth. Our primary education program is designed to provide a balanced, engaging, and nurturing environment where young learners can develop the essential skills and values to serve them throughout their education. We are committed to making learning enjoyable, interactive, and meaningful, ensuring each child is motivated to explore, create, and discover.</p>
+                </div>
+            </div>
+            <img src="images/Primary1.JPG" alt="Primary Education Image">
+        </div>
+
+        <!-- Section 2 -->
+        <div class="section">
+            <div class="text">
+                <div class="text-box">
+                    <h3>A Holistic Learning Experience</h3>
+                    <p>At European Erudition Institutions TheCSchool, our primary school curriculum offers a comprehensive approach that addresses academics, creativity, physical activities, and social development. We strive to create an enriching environment where children can explore various fields of interest. By focusing on a balanced education, we foster an inquisitive mindset and instill a lifelong love for learning.</p>
+                </div>
+            </div>
+            <img src="images/Primary2.JPG" alt="Students engaged in activities">
+        </div>
+
+        <!-- Section 3 -->
+        <div class="section">
+            <div class="text">
+                <div class="text-box">
+                    <h3>Personalised Attention and Growth</h3>
+                    <p>At European Erudition Institutions TheCSchool, we understand that each child is unique. Our teachers are committed to tailoring their approach to suit every student's learning needs and pace, ensuring that no child is left behind. This personalised attention helps children grasp concepts at their own speed and boosts their confidence, nurturing academic achievement and personal growth in every child.</p>
+                </div>
+            </div>
+            <img src="images/Primary3.JPG" alt="Teacher assisting a student">
+        </div>
+
+        <!-- Section 4 -->
+        <div class="section">
+            <div class="text">
+                <div class="text-box">
+                    <h3>Exploring Through Experiential Learning</h3>
+                    <p>Our educational philosophy emphasises the importance of hands-on learning experiences. Through engaging activities, practical projects, and outdoor exploration, children at RGIMS connect classroom knowledge to the real world. This approach strengthens their understanding and fosters critical thinking, creativity, and problem-solving skills that are essential for their development.</p>
+                </div>
+            </div>
+            <img src="images/Primary4.JPG" alt="Students performing a science experiment">
+        </div>
+
+        <!-- Section 5 -->
+        <div class="section">
+            <div class="text">
+                <div class="text-box">
+                    <h3>Building Character and Leadership</h3>
+                    <p>At European Erudition Institutions TheCSchool, we believe that nurturing character is as vital as academic excellence. We provide opportunities for students to assume leadership roles and responsibilities, both inside and outside the classroom. By emphasising values like empathy, responsibility, and teamwork, we aim to develop confident, compassionate individuals who can lead with integrity and positively influence others.</p>
+                </div>
+            </div>
+            <img src="images/Primary5.JPG" alt="Students participating in leadership activities">
+        </div>
+
+        <!-- Section 6 -->
+        <div class="section">
+            <div class="text">
+                <div class="text-box">
+                    <h3>A Safe, Nurturing Environment</h3>
+                    <p>At European Erudition Institutions TheCSchool, the safety and well-being of our students are our top priority. We provide a secure and welcoming environment that gives parents peace of mind, knowing their children are in good hands. With our team of dedicated professionals and modern facilities, we ensure that each child feels cared for and respected. This nurturing environment allows students to thrive academically, socially, and emotionally, laying the foundation for a successful future.</p>
+                </div>
+            </div>
+            <img src="images/Primary6.JPG" alt="Happy students in a secure school environment">
+        </div>
+    </div>
+
+        <!-- Enquiry Section -->
+        <section class="enquire-container">
+            <p class="enquire-text">Speak to our Admission Counsellors to know more</p>
+            <a href="admissions.html" class="enquire-button">Enquire Now</a>
+        </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+            <div class="footer-content">
+                <h1>CONTACT US</h1>
+                <p><i class="fas fa-map-marker-alt"></i> Santhiram Medical College and General Hospital, NH-18, X' Roads, Nerawada, Nandyala, Andhra Pradesh 518501</p>
+                <p><i class="fas fa-envelope"></i> dps@gmail.com</p>
+                <p><i class="fas fa-phone"></i> +917093803881</p>
+            <p><i class="fas fa-phone"></i> +917093803882</p>
+            <p><i class="fas fa-phone"></i> +917093803884</p>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright &copy; 2025 European Erudition Institutions TheCSchool. All Rights Reserved.</p>
+            <p>Designed and Developed by <a href="https://www.linkedin.com/in/aparajita-g-1678bb290">Aparajita Ghanta</a> and <a href="https://in.linkedin.com/in/akhilesh-samayamanthula-05bb1821a">Akhilesh Samayamanthula</a></p>
+        </div>
+        </footer>
+
+    <script>
+        // Scroll Animation Logic
+        const sections = document.querySelectorAll('.section');
+        const checkVisibility = () => {
+    sections.forEach(section => {
+        const sectionTop = section.getBoundingClientRect().top;
+        const sectionBottom = section.getBoundingClientRect().bottom;
+        const windowHeight = window.innerHeight;
+
+        // If the section is in the viewport
+        if (sectionTop < windowHeight * 0.75 && sectionBottom > 0) {
+            section.classList.add('visible');
+        }
+    });
+};
+
+// Trigger on scroll and initial load
+window.addEventListener('scroll', checkVisibility);
+window.addEventListener('load', checkVisibility);
+
+        // Mobile menu toggle function
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const mobileToggle = document.querySelector('.mobile-menu-toggle');
+            navLinks.classList.toggle('active');
+            mobileToggle.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+                document.querySelector('.mobile-menu-toggle').classList.remove('active');
+            });
+        });
+
+        // Debug: Ensure content is visible
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded, checking content...');
+            
+            // Force all content to be visible
+            const contentElements = document.querySelectorAll('.content, .content h2, .content .section, .content .section .text, .content .section .text .text-box, .content .section .text .text-box p, .content .section .text .text-box h3');
+            contentElements.forEach(element => {
+                if (element) {
+                    element.style.visibility = 'visible';
+                    element.style.display = 'block';
+                    element.style.color = '#000';
+                    console.log('Made element visible:', element);
+                }
+            });
+            
+            // Check if content exists
+            const h2 = document.querySelector('.content h2');
+            const textBoxes = document.querySelectorAll('.content .section .text .text-box');
+            console.log('H2 element:', h2);
+            console.log('Text boxes found:', textBoxes.length);
+            
+            if (h2) {
+                console.log('H2 text content:', h2.textContent);
+            }
+            
+            textBoxes.forEach((box, index) => {
+                console.log(`Text box ${index} content:`, box.textContent);
+            });
+        });
+    </script>
+</body>
+</html>

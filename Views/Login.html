@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three Boxes</title>
+    <style>
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .navbar .logo img {
+            height: 100px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            margin-top: 20px;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #0e3970;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #75e5e9;
+        }
+
+        /* Body Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ff9900;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding-top: 140px; /* Add padding to prevent content from hiding behind navbar */
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: #0e3970;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .box:hover {
+            background-color: #75e5e9;
+            transform: scale(1.05);
+        }
+
+        .box a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Mobile Navigation */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .hamburger {
+            width: 25px;
+            height: 3px;
+            background-color: #0e3970;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .mobile-menu-toggle.active .hamburger:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .mobile-menu-toggle.active .hamburger:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active .hamburger:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 10px 20px;
+            }
+
+            .navbar .logo img {
+                height: 60px;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                gap: 15px;
+                margin-top: 15px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 16px;
+                padding: 10px;
+                border-bottom: 1px solid #eee;
+            }
+
+            body {
+                padding-top: 120px;
+            }
+
+            .container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .box {
+                width: 100%;
+                height: 150px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 8px 15px;
+            }
+
+            .navbar .logo img {
+                height: 50px;
+            }
+
+            .nav-links a {
+                font-size: 14px;
+            }
+
+            body {
+                padding-top: 100px;
+            }
+
+            .box {
+                height: 120px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="images/dpslogo.jpeg" alt="School Logo">
+        </div>
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+            <div class="hamburger"></div>
+            <div class="hamburger"></div>
+            <div class="hamburger"></div>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/admissions">Admissions</a></li>
+            <li><a href="/academics">Academics</a></li>
+            <li><a href="/hostel">Hostel</a></li>
+            <li><a href="/activities">Activities</a></li>
+            <li><a href="/birthday">Birthday</a></li>
+            <li><a href="/gallery">Gallery</a></li>
+            <li><a href="/planner">Planner</a></li>
+            <li><a href="/contactus">Contact Us</a></li>
+            <li><a href="/Login">Sign In</a></li>
+        </ul>
+    </nav>
+
+    <!-- Three Boxes -->
+    <div class="container">
+        <!-- Box 1: Redirects to signin.html -->
+        <div class="box" onclick="window.location.href='/signin'">
+            Sign In
+        </div>
+
+        <!-- Box 2: Redirects to Student Login -->
+        <div class="box" onclick="window.location.href='https://dps.unicampus.in/ERPLogin.aspx?type=std'">
+            Student Login
+        </div>
+
+        <!-- Box 3: Redirects to Admin Login -->
+        <div class="box" onclick="window.location.href='https://dps.unicampus.in/ERPLogin.aspx?type=adm'">
+            Admin Login
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle function
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const mobileToggle = document.querySelector('.mobile-menu-toggle');
+            navLinks.classList.toggle('active');
+            mobileToggle.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+                document.querySelector('.mobile-menu-toggle').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

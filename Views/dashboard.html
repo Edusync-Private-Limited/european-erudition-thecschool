@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .dashboard-container {
+            display: flex;
+            gap: 20px;
+        }
+        .option-card {
+            width: 250px;
+            height: 300px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 20px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .option-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+        .option-card img {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+        }
+        .option-card h3 {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="option-card" onclick="redirectTo('admin-activities')">
+            <img src="activities.jpg" alt="Admin Activities">
+            <h3>Admin Activities</h3>
+        </div>
+        <div class="option-card" onclick="redirectTo('admin-staff')">
+            <img src="staff.jpg" alt="Admin Staff">
+            <h3>Admin Staff</h3>
+        </div>
+    </div>
+
+    <script>
+        function redirectTo(page) {
+            const token = localStorage.getItem('adminToken');
+            if (!token) {
+                alert('Unauthorized! Please sign in again.');
+                window.location.href = '/';
+                return;
+            }
+            window.location.href = `/${page}?token=${token}`;
+        }
+    </script>
+</body>
+</html>
