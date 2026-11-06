@@ -567,24 +567,27 @@ textarea.form-control {
 .footer {
   background: #0a0a23;
   color: #fff;
-  padding: 60px 20px;
+  padding: 50px 0 0 0;
   text-align: center;
 }
 
 .footer-content {
   max-width: 800px;
   margin: 0 auto;
+  padding: 0 20px 40px 20px;
 }
 
 .footer-content h2 {
   font-size: 32px;
   font-weight: 700;
-  margin-bottom: 20px;
+  letter-spacing: 1px;
+  margin-bottom: 24px;
 }
 
 .footer-content p {
-  font-size: 18px;
-  margin-bottom: 10px;
+  font-size: 17px;
+  line-height: 1.6;
+  margin-bottom: 14px;
 }
 
 .footer-content i {
@@ -593,8 +596,8 @@ textarea.form-control {
 
 .footer-bottom {
   background: #07071a;
-  padding: 20px;
-  font-size: 20px;
+  padding: 22px 20px;
+  font-size: 18px;
 }
 
 .footer-bottom a {
