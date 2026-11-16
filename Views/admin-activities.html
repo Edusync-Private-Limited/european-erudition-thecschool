@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
             background-color: #f4f4f4;
             padding: 20px;
         }
+
         .dashboard-container {
             max-width: 1000px;
             margin: 0 auto;
@@ -20,10 +22,12 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         .dashboard-container h2 {
             margin-bottom: 20px;
             color: #0e3970;
         }
+
         .dashboard-container input,
         .dashboard-container textarea {
             width: 100%;
@@ -32,6 +36,7 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+
         .dashboard-container button {
             padding: 10px 20px;
             background-color: #0e3970;
@@ -41,6 +46,7 @@
             cursor: pointer;
             margin: 5px;
         }
+
         .dashboard-container button:hover {
             background-color: #75e5e9;
         }
@@ -56,16 +62,19 @@
             transition: all 0.3s ease;
             cursor: pointer;
         }
+
         .drop-zone.dragover {
             border-color: #75e5e9;
             background-color: #e3f2fd;
             transform: scale(1.02);
         }
+
         .drop-zone p {
             margin: 0;
             color: #666;
             font-size: 16px;
         }
+
         .drop-zone .upload-icon {
             font-size: 48px;
             color: #0e3970;
@@ -83,19 +92,22 @@
             border-radius: 8px;
             background-color: #f9f9f9;
         }
+
         .image-preview {
             position: relative;
             width: 120px;
             height: 120px;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
+
         .image-preview img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
+
         .image-preview .remove-btn {
             position: absolute;
             top: 5px;
@@ -112,6 +124,7 @@
             align-items: center;
             justify-content: center;
         }
+
         .image-preview .remove-btn:hover {
             background: rgba(255, 0, 0, 1);
         }
@@ -122,10 +135,12 @@
             display: inline-block;
             margin: 10px 0;
         }
+
         .file-input-wrapper input[type=file] {
             position: absolute;
             left: -9999px;
         }
+
         .file-input-label {
             display: inline-block;
             padding: 10px 20px;
@@ -135,6 +150,7 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
+
         .file-input-label:hover {
             background-color: #75e5e9;
         }
@@ -149,15 +165,18 @@
             margin: 10px 0;
             display: none;
         }
+
         .upload-progress-bar {
             height: 100%;
             background-color: #0e3970;
             width: 0%;
             transition: width 0.3s ease;
         }
+
         .activity-list {
             margin-top: 20px;
         }
+
         .activity-item {
             display: flex;
             justify-content: space-between;
@@ -168,27 +187,33 @@
             margin-bottom: 15px;
             background-color: #fafafa;
         }
+
         .activity-item img {
             max-width: 100px;
             border-radius: 4px;
         }
+
         .activity-item-info {
             flex: 1;
             margin: 0 15px;
         }
+
         .activity-item-info h4 {
             margin: 0 0 5px 0;
             color: #0e3970;
         }
+
         .activity-item-info p {
             margin: 0;
             color: #666;
             line-height: 1.4;
         }
+
         .activity-actions {
             display: flex;
             gap: 10px;
         }
+
         .edit-btn {
             background-color: #0e3970;
             color: white;
@@ -197,9 +222,11 @@
             border-radius: 4px;
             cursor: pointer;
         }
+
         .edit-btn:hover {
             background-color: #75e5e9;
         }
+
         .delete-btn {
             background-color: #ff4d4d;
             color: white;
@@ -208,10 +235,11 @@
             border-radius: 4px;
             cursor: pointer;
         }
+
         .delete-btn:hover {
             background-color: #cc0000;
         }
-        
+
         /* Edit Modal Styles */
         .modal {
             display: none;
@@ -221,8 +249,9 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0, 0, 0, 0.5);
         }
+
         .modal-content {
             background-color: #fefefe;
             margin: 5% auto;
@@ -232,6 +261,7 @@
             max-width: 600px;
             position: relative;
         }
+
         .close {
             color: #aaa;
             float: right;
@@ -242,13 +272,16 @@
             right: 15px;
             top: 10px;
         }
+
         .close:hover {
             color: #000;
         }
+
         .modal h3 {
             margin-top: 0;
             color: #0e3970;
         }
+
         .modal input,
         .modal textarea {
             width: 100%;
@@ -258,19 +291,23 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
+
         .modal textarea {
             height: 100px;
             resize: vertical;
         }
+
         .modal-buttons {
             text-align: right;
             margin-top: 20px;
         }
+
         .modal-buttons button {
             margin-left: 10px;
         }
     </style>
 </head>
+
 <body>
     <div class="dashboard-container">
         <h2>Admin Activities</h2>
@@ -279,30 +316,30 @@
         <form id="activityForm">
             <input type="text" id="activityTitle" placeholder="Activity Title" required>
             <textarea id="activityDescription" placeholder="Activity Description" required></textarea>
-            
+
             <!-- Drag and Drop Zone -->
             <div class="drop-zone" id="dropZone">
                 <div class="upload-icon">📁</div>
                 <p>Drag and drop image here or click to select</p>
                 <p><small>Supports single image selection</small></p>
             </div>
-            
+
             <!-- Hidden file input -->
             <div class="file-input-wrapper">
                 <input type="file" id="activityImage" accept="image/*" style="display: none;">
                 <label for="activityImage" class="file-input-label">Choose Image</label>
             </div>
-            
+
             <!-- Image Preview Container -->
             <div class="image-preview-container" id="imagePreviewContainer" style="display: none;">
                 <h4>Selected Image:</h4>
             </div>
-            
+
             <!-- Upload Progress -->
             <div class="upload-progress" id="uploadProgress">
                 <div class="upload-progress-bar" id="uploadProgressBar"></div>
             </div>
-            
+
             <button type="submit" id="submitBtn">Add Activity</button>
             <button type="button" id="clearBtn">Clear Selection</button>
         </form>
@@ -322,7 +359,8 @@
             <form id="editActivityForm">
                 <input type="hidden" id="editActivityId" name="id">
                 <input type="text" id="editActivityTitle" name="title" placeholder="Activity Title" required>
-                <textarea id="editActivityDescription" name="description" placeholder="Activity Description" required></textarea>
+                <textarea id="editActivityDescription" name="description" placeholder="Activity Description"
+                    required></textarea>
                 <div class="modal-buttons">
                     <button type="button" id="cancelEdit">Cancel</button>
                     <button type="submit">Save Changes</button>
@@ -394,16 +432,16 @@
 
             const preview = document.createElement('div');
             preview.className = 'image-preview';
-            
+
             const img = document.createElement('img');
             img.src = URL.createObjectURL(selectedFile);
             img.alt = selectedFile.name;
-            
+
             const removeBtn = document.createElement('button');
             removeBtn.className = 'remove-btn';
             removeBtn.innerHTML = '×';
             removeBtn.onclick = clearSelection;
-            
+
             preview.appendChild(img);
             preview.appendChild(removeBtn);
             imagePreviewContainer.appendChild(preview);
@@ -487,7 +525,7 @@
                 });
 
                 const data = await response.json();
-                
+
                 if (data.success) {
                     alert('Activity added successfully!');
                     clearSelection();
@@ -550,16 +588,16 @@
                 },
                 body: JSON.stringify({ title }),
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Activity deleted successfully!');
-                    loadActivities();
-                } else {
-                    alert('Failed to delete activity');
-                }
-            })
-            .catch(error => console.error('Error:', error));
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Activity deleted successfully!');
+                        loadActivities();
+                    } else {
+                        alert('Failed to delete activity');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
         };
 
         // Modal handling
@@ -567,22 +605,22 @@
         const closeBtn = document.querySelector('.close');
         const cancelBtn = document.getElementById('cancelEdit');
 
-        closeBtn.onclick = function() {
+        closeBtn.onclick = function () {
             modal.style.display = 'none';
         }
 
-        cancelBtn.onclick = function() {
+        cancelBtn.onclick = function () {
             modal.style.display = 'none';
         }
 
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = 'none';
             }
         }
 
         // Edit form submission
-        document.getElementById('editActivityForm').addEventListener('submit', function(event) {
+        document.getElementById('editActivityForm').addEventListener('submit', function (event) {
             event.preventDefault();
 
             const originalTitle = document.getElementById('editActivityId').value;
@@ -595,30 +633,31 @@
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify({ 
+                body: JSON.stringify({
                     originalTitle: originalTitle,
-                    title: newTitle, 
-                    description: newDescription 
+                    title: newTitle,
+                    description: newDescription
                 }),
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Activity updated successfully!');
-                    modal.style.display = 'none';
-                    loadActivities();
-                } else {
-                    alert('Failed to update activity: ' + (data.message || 'Unknown error'));
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error updating activity. Please try again.');
-            });
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Activity updated successfully!');
+                        modal.style.display = 'none';
+                        loadActivities();
+                    } else {
+                        alert('Failed to update activity: ' + (data.message || 'Unknown error'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error updating activity. Please try again.');
+                });
         });
 
         // Load activities on page load
         loadActivities();
     </script>
 </body>
+
 </html>
