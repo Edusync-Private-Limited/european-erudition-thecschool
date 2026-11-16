@@ -22,93 +22,154 @@
             color: #333;
         }
 
-        /* Navbar */
+        /* ================= Navbar Styling ================= */
         .navbar {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 15px 40px;
-            background-color: rgba(255, 255, 255, 0.9);
+            justify-content: center;
+            padding: 10px 30px;
+            background-color: #ffffff;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
             z-index: 1000;
-            transition: background 0.4s ease-in-out;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .navbar-header {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             width: 100%;
-            max-width: 1200px;
+            max-width: 1400px;
+            transition: all 0.3s ease;
         }
 
-        .navbar.transparent {
-            background-color: rgba(255, 255, 255, 0.6);
-            box-shadow: none;
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .navbar .logo img {
-            height: 100px;
-            /* Increased logo size */
+            height: 62px;
+            width: auto;
+            display: block;
+            transition: height 0.3s ease;
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 16px;
             list-style: none;
-            margin-top: 20px;
-            /* Space between logo and links */
+            margin: 8px 0 0 0;
+            padding: 0;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: nowrap;
+            transition: all 0.3s ease;
         }
 
         .nav-links li {
-            display: inline;
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
         }
 
         .nav-links a {
+            font-family: 'Poppins', sans-serif;
             text-decoration: none;
             color: #0e3970;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             text-transform: uppercase;
-            transition: color 0.3s;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+            padding: 4px 2px;
+            transition: color 0.25s ease;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover,
+        .nav-links a.active {
             color: #75e5e9;
         }
 
-        /* Mobile Navigation */
+        /* Compact Scrolled State (Desktop) */
+        @media (min-width: 992px) {
+            .navbar.scrolled {
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 28px;
+                padding: 6px 35px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+            }
+
+            .navbar.scrolled .navbar-header {
+                width: auto;
+                flex-shrink: 0;
+                justify-content: flex-start;
+            }
+
+            .navbar.scrolled .logo img {
+                height: 44px;
+            }
+
+            .navbar.scrolled .nav-links {
+                margin: 0;
+                gap: 14px;
+                justify-content: flex-start;
+            }
+
+            .navbar.scrolled .nav-links a {
+                font-size: 12.5px;
+            }
+        }
+
+        /* Medium / Small Laptop Screens */
+        @media (min-width: 992px) and (max-width: 1240px) {
+            .nav-links {
+                gap: 10px;
+            }
+            .nav-links a {
+                font-size: 11.5px;
+            }
+            .navbar.scrolled .nav-links {
+                gap: 9px;
+            }
+            .navbar.scrolled .nav-links a {
+                font-size: 11px;
+            }
+        }
+
+        /* Mobile Navigation Elements */
         .mobile-menu-toggle {
             display: none;
             background: none;
             border: none;
             cursor: pointer;
-            padding: 5px;
+            padding: 6px;
             flex-direction: column;
             justify-content: space-around;
-            width: 30px;
-            height: 30px;
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            z-index: 1002;
         }
 
         .hamburger {
-            width: 25px;
+            width: 24px;
             height: 3px;
             background-color: #0e3970;
-            margin: 3px 0;
+            margin: 2px 0;
             transition: 0.3s;
             border-radius: 2px;
         }
 
         .mobile-menu-toggle.active .hamburger:nth-child(1) {
-            transform: rotate(-45deg) translate(-5px, 6px);
+            transform: rotate(-45deg) translate(-5px, 5px);
         }
 
         .mobile-menu-toggle.active .hamburger:nth-child(2) {
@@ -116,76 +177,93 @@
         }
 
         .mobile-menu-toggle.active .hamburger:nth-child(3) {
-            transform: rotate(45deg) translate(-5px, -6px);
+            transform: rotate(45deg) translate(-5px, -5px);
         }
 
-        /* Mobile Responsive Styles */
-        @media (max-width: 768px) {
+        /* Mobile & Tablet Responsiveness */
+        @media (max-width: 991px) {
             .navbar {
+                flex-direction: row;
+                justify-content: space-between;
                 padding: 10px 20px;
-                position: fixed !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
+            }
+
+            .navbar.scrolled {
+                padding: 6px 20px;
             }
 
             .navbar-header {
-                position: relative;
-            }
-
-            .navbar .logo img {
-                height: 60px;
-            }
-
-            .mobile-menu-toggle {
-                display: flex;
-                right: 20px;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                gap: 15px;
-                margin-top: 15px;
                 width: 100%;
-                text-align: center;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                background-color: rgba(255, 255, 255, 0.95);
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-                padding: 20px;
-                z-index: 1001;
-            }
-
-            .nav-links.active {
                 display: flex;
-            }
-
-            .nav-links a {
-                font-size: 16px;
-                padding: 10px;
-                border-bottom: 1px solid #eee;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .navbar {
-                padding: 8px 15px;
-                position: fixed !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
+                justify-content: space-between;
+                align-items: center;
             }
 
             .navbar .logo img {
                 height: 50px;
             }
 
+            .navbar.scrolled .logo img {
+                height: 42px;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                gap: 0;
+                margin: 0;
+                width: 100%;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #ffffff;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+                padding: 10px 0;
+                max-height: calc(100vh - 80px);
+                overflow-y: auto;
+                z-index: 1001;
+                border-top: 1px solid #f0f0f0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                width: 100%;
+                display: block;
+            }
+
             .nav-links a {
+                display: block;
                 font-size: 14px;
+                padding: 12px 25px;
+                border-bottom: 1px solid #f4f4f4;
+                color: #0e3970;
+                text-align: left;
+            }
+
+            .nav-links li:last-child a {
+                border-bottom: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 8px 15px;
+            }
+
+            .navbar .logo img {
+                height: 44px;
+            }
+
+            .navbar.scrolled .logo img {
+                height: 38px;
             }
         }
 
@@ -699,7 +777,7 @@
 
         .heading-section h2 {
             font-size: 58px;
-            font-family: 'Georgia', serif;
+            font-family: 'Poppins', sans-serif;
             font-weight: bold;
             color: #0e3970;
             margin-bottom: 10px;
@@ -957,21 +1035,19 @@
         /* News Ticker Styles */
         .news-ticker {
             background-color: #0e3970;
-            /* Dark blue background */
             color: #fff;
-            /* White text */
             padding: 10px 0;
             font-size: 16px;
             font-weight: 600;
             text-align: center;
             position: fixed;
-            top: 130px;
-            /* Adjust based on your navbar height */
+            top: 0; /* JS sets correct value via --navbar-h */
             left: 0;
             right: 0;
             z-index: 999;
-            /* Ensure it stays above other content */
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            /* Match navbar transition so ticker slides smoothly with it */
+            transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .news-ticker a {
@@ -982,7 +1058,6 @@
 
         .news-ticker a:hover {
             color: #75e5e9;
-            /* Light blue on hover */
         }
 
         /* Mobile News Ticker */
@@ -1016,7 +1091,7 @@
             </button>
         </div>
         <ul class="nav-links" id="navLinks">
-            <li><a href="/home">Home</a></li>
+            <li><a href="/home" class="active">Home</a></li>
             <li><a href="/about">About Us</a></li>
             <li><a href="/admissions">Admissions</a></li>
             <li><a href="/academics">Academics</a></li>
@@ -1027,6 +1102,7 @@
             <li><a href="/planner">Planner</a></li>
             <li><a href="/contactus">Contact Us</a></li>
             <li><a href="/Login">Login</a></li>
+            <li><a href="/mandatory-disclosure">Disclosure</a></li>
         </ul>
     </nav>
     <!-- News Ticker Section -->
@@ -1037,14 +1113,40 @@
         </marquee>
     </div>
     <script>
-        // Calculate navbar height and set news ticker position
-        const navbar = document.querySelector('.navbar');
+        const navbar = document.getElementById('navbar');
         const newsTicker = document.querySelector('.news-ticker');
 
-        if (navbar && newsTicker) {
-            const navbarHeight = navbar.offsetHeight;
-            newsTicker.style.top = `${navbarHeight}px`;
+        // Always read navbar's actual rendered height and apply to ticker
+        function syncTickerToNavbar() {
+            if (navbar && newsTicker) {
+                newsTicker.style.top = navbar.offsetHeight + 'px';
+            }
         }
+
+        // Run immediately on DOM ready (before images load)
+        syncTickerToNavbar();
+
+        // Run after full page load (images may change navbar size)
+        window.addEventListener('load', syncTickerToNavbar);
+
+        // Run on resize (mobile orientation changes etc.)
+        window.addEventListener('resize', syncTickerToNavbar);
+
+        // Run after navbar CSS transition ends — this is the ROOT CAUSE FIX:
+        // When scroll adds/removes .scrolled, the navbar height changes over 0.3s.
+        // We must re-read offsetHeight AFTER the transition completes.
+        navbar.addEventListener('transitionend', syncTickerToNavbar);
+
+        // Compact navbar on scroll
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 30) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            // Also update immediately for a rough sync before transition ends
+            syncTickerToNavbar();
+        });
 
         // Mobile menu toggle function
         function toggleMobileMenu() {
@@ -1052,6 +1154,8 @@
             const mobileToggle = document.querySelector('.mobile-menu-toggle');
             navLinks.classList.toggle('active');
             mobileToggle.classList.toggle('active');
+            // Mobile menu opening/closing also changes navbar height
+            setTimeout(syncTickerToNavbar, 10);
         }
 
         // Close mobile menu when clicking on a link
@@ -1059,6 +1163,7 @@
             link.addEventListener('click', () => {
                 document.getElementById('navLinks').classList.remove('active');
                 document.querySelector('.mobile-menu-toggle').classList.remove('active');
+                setTimeout(syncTickerToNavbar, 10);
             });
         });
     </script>
@@ -1126,7 +1231,7 @@
                         and inclusivity. We will keep evolving, embracing new challenges, and striving to provide an
                         education that prepares our students not just for exams but for life."
                     </p>
-                    <p class="principal-name">- Mrs. Radhika Sen (Principal)</p>
+                    <p class="principal-name">- Elizabeth skariya John (Principal)</p>
                 </div>
             </div>
         </section>
@@ -1153,7 +1258,7 @@
                         where every student is equipped with the skills, knowledge, and confidence to thrive in the 21st
                         century and beyond."
                     </p>
-                    <p class="principal-name">- Mr. Rajesh Verma (Managing Director)</p>
+                    <p class="principal-name">- Mr. Kattula Vishnu Mohan (Managing Director)</p>
                 </div>
             </div>
         </section>
@@ -1399,17 +1504,14 @@
                 <span style="display: block; font-size: 22px; font-weight: 700; margin-bottom: 8px;">
                     <i class="fas fa-map-marker-alt"></i> European Erudition Institutions
                 </span>
-                <span style="font-size: 16px; opacity: 0.95;">Aswaraopet Road, Jangareddygudem, Eluru District, Andhra Pradesh, India.</span>
+                <span style="font-size: 16px; opacity: 0.95;">Aswaraopet Road, Jangareddygudem, Eluru District, Andhra
+                    Pradesh, India.</span>
             </p>
-            <p style="margin-bottom: 14px;"><i class="fas fa-envelope"></i> thecschoooool@gmail.com</p>
+            <p style="margin-bottom: 14px;"><i class="fas fa-envelope"></i> Europeanerudition@icloud.com</p>
             <p style="margin-bottom: 0;"><i class="fas fa-phone"></i> +91 95817 15555</p>
         </div>
         <div class="footer-bottom">
             <p>Copyright &copy; 2025 European Erudition Institutions TheCSchool. All Rights Reserved.</p>
-
-            <p>Designed and Developed by <a href="https://www.linkedin.com/in/aparajita-g-1678bb290">Aparajita
-                    Ghanta</a> and <a href="https://in.linkedin.com/in/akhilesh-samayamanthula-05bb1821a">Akhilesh
-                    Samayamanthula</a></p>
         </div>
     </footer>
 </body>

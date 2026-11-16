@@ -127,6 +127,10 @@ app.get('/about', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'about.html'));
 });
 
+app.get('/mandatory-disclosure', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'mandatory-disclosure.html'));
+});
+
 app.get('/admissions', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'admissions.html'));
 });

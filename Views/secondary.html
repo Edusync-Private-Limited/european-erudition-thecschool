@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <title>European Erudition Institutions TheCSchool</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
         /* Basic Reset */
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 
@@ -17,7 +19,7 @@
 
         /* Body Styling */
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-color: #ff7f50;
             color: #000;
         }
@@ -61,104 +63,140 @@
             color: #000 !important;
         }
 
-        /* Navbar */
+        /* ================= Navbar Styling ================= */
         .navbar {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 15px 40px;
-            background-color: rgba(255, 255, 255, 1);
+            justify-content: center;
+            padding: 10px 30px;
+            background-color: #ffffff;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
             z-index: 1000;
-            transition: background 0.4s ease-in-out;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .navbar-header {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             width: 100%;
-            max-width: 1200px;
+            max-width: 1400px;
+            transition: all 0.3s ease;
         }
 
-        .navbar.transparent {
-            background-color: rgba(255, 255, 255, 0.6);
-            box-shadow: none;
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .navbar .logo img {
-            height: 80px;
+            height: 62px;
+            width: auto;
+            display: block;
+            transition: height 0.3s ease;
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 16px;
             list-style: none;
-            margin-top: 20px; /* Space between logo and links */
+            margin: 8px 0 0 0;
+            padding: 0;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: nowrap;
+            transition: all 0.3s ease;
         }
 
         .nav-links li {
-            display: inline;
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
         }
 
         .nav-links a {
+            font-family: 'Poppins', sans-serif;
             text-decoration: none;
             color: #0e3970;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             text-transform: uppercase;
-            transition: color 0.3s;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+            padding: 4px 2px;
+            transition: color 0.25s ease;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover,
+        .nav-links a.active {
             color: #75e5e9;
         }
 
-        /* Sub Navbar */
-        .sub-navbar {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            padding: 15px 0;
-            background-color: #f8f8f8;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-top: 100px; /* Adjust if needed */
-            position: fixed;
-            top: 40px; /* Place it below the main navbar */
-            left: 0;
-            right: 0;
-            z-index: 999;
+        /* Compact Scrolled State (Desktop) */
+        @media (min-width: 992px) {
+            .navbar.scrolled {
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 28px;
+                padding: 6px 35px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+            }
+
+            .navbar.scrolled .navbar-header {
+                width: auto;
+                flex-shrink: 0;
+                justify-content: flex-start;
+            }
+
+            .navbar.scrolled .logo img {
+                height: 44px;
+            }
+
+            .navbar.scrolled .nav-links {
+                margin: 0;
+                gap: 14px;
+                justify-content: flex-start;
+            }
+
+            .navbar.scrolled .nav-links a {
+                font-size: 12.5px;
+            }
         }
 
-        .sub-navbar a {
-            text-decoration: none;
-            color: #333;
-            font-size: 16px;
-            font-weight: bold;
-            text-transform: uppercase;
-            padding: 10px 20px;
-            transition: color 0.3s ease-in-out;
-        }
-
-        .sub-navbar a:hover {
-            color: #75e5e9;
+        /* Medium / Small Laptop Screens */
+        @media (min-width: 992px) and (max-width: 1240px) {
+            .nav-links {
+                gap: 10px;
+            }
+            .nav-links a {
+                font-size: 11.5px;
+            }
+            .navbar.scrolled .nav-links {
+                gap: 9px;
+            }
+            .navbar.scrolled .nav-links a {
+                font-size: 11px;
+            }
         }
 
         /* Main Content */
         .content {
             max-width: 900px;
-            margin: 300px auto; /* Adjusted margin to accommodate fixed navbar */
+            margin: 130px auto 40px auto; /* Adjusted margin to accommodate fixed navbar */
             padding: 20px;
             position: relative;
             z-index: 1;
             background-color: transparent;
         }
 
-        h2 {
+        .content h2 {
             font-size: 26px;
             margin-bottom: 15px;
             color: #000 !important;
@@ -166,7 +204,7 @@
             display: block !important;
         }
 
-        h3 {
+        .content h3 {
             font-size: 22px;
             margin-bottom: 15px;
             color: #000 !important;
@@ -174,7 +212,7 @@
             display: block !important;
         }
 
-        p {
+        .content p {
             font-size: 16px;
             line-height: 1.6;
             margin: 0; /* Remove default margin */
@@ -233,37 +271,115 @@
         /* Enquiry Section */
       
 
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
+        /* Mobile Navigation Elements */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 32px;
+            height: 32px;
+            z-index: 1002;
+        }
+
+        .hamburger {
+            width: 24px;
+            height: 3px;
+            background-color: #0e3970;
+            margin: 2px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .mobile-menu-toggle.active .hamburger:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 5px);
+        }
+
+        .mobile-menu-toggle.active .hamburger:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active .hamburger:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -5px);
+        }
+
+        /* Mobile & Tablet Responsiveness */
+        @media (max-width: 991px) {
             .navbar {
+                flex-direction: row;
+                justify-content: space-between;
                 padding: 10px 20px;
             }
 
+            .navbar.scrolled {
+                padding: 6px 20px;
+            }
+
+            .navbar-header {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
             .navbar .logo img {
-                height: 60px;
+                height: 50px;
+            }
+
+            .navbar.scrolled .logo img {
+                height: 42px;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
             }
 
             .nav-links {
-                gap: 15px;
+                display: none;
+                flex-direction: column;
+                gap: 0;
+                margin: 0;
+                width: 100%;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #ffffff;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+                padding: 10px 0;
+                max-height: calc(100vh - 80px);
+                overflow-y: auto;
+                z-index: 1001;
+                border-top: 1px solid #f0f0f0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                width: 100%;
+                display: block;
             }
 
             .nav-links a {
-                font-size: 12px;
-            }
-
-            .sub-navbar {
-                flex-wrap: wrap;
-                padding: 10px 0;
-                margin-top: 80px;
-            }
-
-            .sub-navbar a {
+                display: block;
                 font-size: 14px;
-                padding: 8px 15px;
+                padding: 12px 25px;
+                border-bottom: 1px solid #f4f4f4;
+                color: #0e3970;
+                text-align: left;
+            }
+
+            .nav-links li:last-child a {
+                border-bottom: none;
             }
 
             .content {
-                margin: 200px auto;
+                margin: 95px auto 20px auto;
                 padding: 10px;
             }
 
@@ -310,7 +426,7 @@
         /* Footer */
         .footer {
             background: #0a0a23;
-            color: #fff;
+            color: #fff !important;
             padding: 50px 0 0 0;
             text-align: center;
         }
@@ -326,12 +442,20 @@
             font-weight: 700;
             letter-spacing: 1px;
             margin-bottom: 24px;
+            color: #fff !important;
         }
 
         .footer-content p {
             font-size: 17px;
             line-height: 1.6;
             margin-bottom: 14px;
+            color: #fff !important;
+        }
+
+        .footer-content p span,
+        .footer-content p strong,
+        .footer-content i {
+            color: #fff !important;
         }
 
         .footer-content i {
@@ -342,13 +466,19 @@
             background: #07071a;
             padding: 22px 20px;
             font-size: 18px;
+            color: #fff !important;
+        }
+
+        .footer-bottom p {
+            color: #fff !important;
+            margin: 0;
         }
     </style>
 </head>
 <body>
 
     <!-- Main Navbar -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="navbar-header">
             <div class="logo">
                 <img src="images/dpslogo.jpeg" alt="School Logo">
@@ -363,21 +493,16 @@
             <li><a href="/home">Home</a></li>
             <li><a href="/about">About Us</a></li>
             <li><a href="/admissions">Admissions</a></li>
-            <li><a href="/academics">Academics</a></li>
+            <li><a href="/academics" class="active">Academics</a></li>
             <li><a href="/hostel">Hostel</a></li>
             <li><a href="/activities">Activities</a></li>
+            <li><a href="/birthday">Birthdays</a></li>
             <li><a href="/gallery">Gallery</a></li>
             <li><a href="/planner">Planner</a></li>
             <li><a href="/contactus">Contact Us</a></li>
-            <li><a href="/Login">Sign In</a></li>
+            <li><a href="/Login">Login</a></li>
+            <li><a href="/mandatory-disclosure">Disclosure</a></li>
         </ul>
-    </nav>
-
-    <!-- Sub Navbar -->
-    <nav class="sub-navbar">
-        <a href="/academics">Primary</a>
-        <a href="/secondary">Secondary</a>
-        <a href="/senior-secondary">Senior Secondary</a>
     </nav>
 
     <!-- Main Content -->
@@ -465,12 +590,11 @@
                 </span>
                 <span style="font-size: 16px; opacity: 0.95;">Aswaraopet Road, Jangareddygudem, Eluru District, Andhra Pradesh, India.</span>
             </p>
-            <p style="margin-bottom: 14px;"><i class="fas fa-envelope"></i> thecschoooool@gmail.com</p>
+            <p style="margin-bottom: 14px;"><i class="fas fa-envelope"></i> Europeanerudition@icloud.com</p>
             <p style="margin-bottom: 0;"><i class="fas fa-phone"></i> +91 95817 15555</p>
         </div>
         <div class="footer-bottom">
             <p>Copyright &copy; 2025 European Erudition Institutions TheCSchool. All Rights Reserved.</p>
-            <p>Designed and Developed by <a href="https://www.linkedin.com/in/aparajita-g-1678bb290">Aparajita Ghanta</a> and <a href="https://in.linkedin.com/in/akhilesh-samayamanthula-05bb1821a">Akhilesh Samayamanthula</a></p>
         </div>
         </footer>
 
@@ -509,6 +633,16 @@
                 document.getElementById('navLinks').classList.remove('active');
                 document.querySelector('.mobile-menu-toggle').classList.remove('active');
             });
+        });
+
+        // Compact navbar on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 30) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
         });
 
         // Debug: Ensure content is visible
