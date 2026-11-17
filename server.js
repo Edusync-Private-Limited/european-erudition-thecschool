@@ -174,6 +174,10 @@ app.get('/planner', (req, res) => {
 app.get('/contactus', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'contactus.html'));
 });
+
+app.get('/footer.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'footer.html'));
+});
 app.get('/admin-activities', (req, res) => {
     const token = req.query.token || req.headers.authorization?.split(' ')[1]; // Get token from query or headers
     if (!token) return res.status(401).json({ success: false, message: 'Unauthorized: No token provided' });
