@@ -666,9 +666,22 @@ body.page-admin-planner {
             margin-bottom: 20px;
 }
 
+.page-home .principal-signature {
+    margin-top: 15px;
+}
+
 .page-home .principal-name {
-    font-weight: 600;
-            font-size: 16px;
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 2px;
+}
+
+.page-home .principal-designation {
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-left: 14px;
 }
 
 
