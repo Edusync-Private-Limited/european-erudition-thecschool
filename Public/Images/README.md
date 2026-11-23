@@ -1,1 +1,1 @@
-# European Erudition Institutions TheCSchool
+# European Erudition Institutions The C School
